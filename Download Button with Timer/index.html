@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download de Arquivo</title>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <style>
+    #countdown {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="downloadButton" onclick="txt()">Download do Arquivo   <p id="countdown">Aguarde 10s</p>
+</button>
+
+  <script>
+    document.getElementById('downloadButton').addEventListener('click', function() {
+      document.getElementById('countdown').style.display = 'block'; // Exibe a mensagem de contagem regressiva
+      var countdown = 10;
+      var countdownInterval = setInterval(function() {
+        document.getElementById('countdown').innerHTML = 'Aguarde ' + countdown + 's';
+        countdown--;
+        if (countdown < 0) {
+          clearInterval(countdownInterval);
+          document.getElementById('countdown').innerHTML = 'Baixando o arquivo...';
+          // Simulação do download
+          setTimeout(function() {
+            var link = document.createElement('a');
+            link.href = 'data:text/html;charset=utf-8,' + encodeURI('<!DOCTYPE html><html><head><title>Arquivo HTML</title></head><body><h1>Este é o conteúdo do arquivo HTML</h1></body></html>');
+            link.download = 'j.jpg';
+            link.click();
+          }, 1000);
+        }
+      }, 1000);
+    });
+    
+    
+  </script>
+  <script>
+    function txt(){
+      swal({
+      title: "O download iniciará em",
+      text: "10s",
+      showConfirmButton: false
+    });
+    
+    let tempo = 10;
+    
+    function atualizarContagemRegressiva() {
+      tempo--;
+      if (tempo >= 0) {
+        swal({
+          title: "O download iniciará em",
+          text: `${tempo}`,
+          showConfirmButton: false
+        });
+        setTimeout(atualizarContagemRegressiva, 1000);
+      } else {
+        swal({
+          title: "Download concluído",
+          text: "Arquivo baixado com sucesso!",
+          icon: "success",
+          button: "Fechar"
+        });
+      }
+    }
+    
+    setTimeout(atualizarContagemRegressiva, 1000);
+    
+    // Simular o download
+    setTimeout(function() {
+    // Aqui você pode adicionar a lógica para iniciar o download do arquivo
+    }, 10000); // Espera 10 segundos antes de iniciar o download
+    
+    });
+  </script>
+ 
+
+</body>
+</html>
+```
+

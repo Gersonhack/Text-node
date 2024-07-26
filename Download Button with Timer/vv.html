@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download com contagem regressiva</title>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+
+<button id="downloadButton">Baixar Arquivo</button>
+
+<script>
+  document.getElementById('downloadButton').addEventListener('click', function() {
+    swal({
+      title: "O download iniciará em",
+      text: "10 segundos",
+      showConfirmButton: false
+    });
+
+    let tempo = 10;
+
+    function atualizarContagemRegressiva() {
+      tempo--;
+      if (tempo > 0) {
+        swal({
+          title: "O download iniciará em",
+          text: `${tempo}`,
+          showConfirmButton: false
+        });
+        setTimeout(atualizarContagemRegressiva, 1000);
+      } else {
+        // Simula o download do arquivo
+        var link = document.createElement("a");
+        link.download = "j.jpg"; // Nome do arquivo a ser baixado
+        link.href = "j.jpg"; // Url do arquivo a ser baixado
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        swal({
+          title: "Download concluído",
+          text: "Arquivo baixado com sucesso!",
+          icon: "success",
+          timer: 2000,
+          buttons: false
+        });
+      }
+    }
+
+    setTimeout(atualizarContagemRegressiva, 1000);
+
+  });
+</script>
+
+</body>
+</html>
+```
+
